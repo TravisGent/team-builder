@@ -1,0 +1,20 @@
+.App {
+  background-color: #282c34;
+  min-height: 100vh;
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+}
+
+.teamMember {
+  background-color: white;
+  width: 325px;
+  height: 150px;
+  color: black;
+  margin: 1% auto;
+}
+
+.teamMember p {
+  padding-top: auto;
+}
+
