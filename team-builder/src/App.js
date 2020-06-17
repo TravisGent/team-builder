@@ -3,57 +3,70 @@ import './App.css';
 import TeamMember from "./TeamMember";
 
 function App() {
+  const [name, setName] = useState({
+    name: "",
+    email: "",
+    role: ""
+  });
+
   const [teamList, setTeamList] = useState([
     {
-        name: "PlaceHolder",
+        name: "Mr. Placeholder",
         email: "placeholder@gmail.com",
-        role: "Place Holder"
+        role: "Tech Role"
     }
   ]);
 
   const addNewTeamMember = member => {
+    setTeamList([...teamList, member]);
+  }
+
+  const newMember = (event) => {
     event.preventDefault();
-    const newTeamMember = {
-      name: member.name,
-      email: member.email,
-      role: member.role
-    }
-    setTeamList([...teamList, newTeamMember]);
+      setTeamList({
+        ...teamList, 
+      [event.target.name]: event.target.value,
+      })
   }
-
-  const newMember = event => {
-    addNewTeamMember(member);
-  }
-
+  console.log(teamList);
   return (
     <div className="App">
       <div className="forms">
-        <form onSubmit={addNewTeamMember}>
-          <label>Name</label>
+        <form onSubmit={event => {
+          event.preventDefault();
+          addNewTeamMember(teamList);
+          setName({name: "", email: "", role: ""});
+        }}>
+          <label htmlFor="name">Name</label>
             <input 
               id="name"
+              name="name"
               type="text" 
               placeholder="Enter Name" 
-              onChange={newMember} 
+              onChange={addNewTeamMember} 
+              value={newMember.name}
             />
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
             <input 
               id="email"
+              name="email"
               type="text" 
               placeholder="Enter Email" 
-              onChange={newMember} 
+              onChange={addNewTeamMember} 
+              value={newMember.email} 
             />
-          <label>Role</label>
+          <label htmlFor="role">Role</label>
             <input 
               id="role"
+              name="role"
               type="text" 
               placeholder="Enter Role" 
-              onChange={newMember}
+              onChange={addNewTeamMember} 
+              value={newMember.role}
             />
           <br /><button type="submit">Submit</button>
         </form>
       </div>
-      <TeamMember addNewTeamMember={addNewTeamMember} />
       {teamList.map(myDataObj => {
         return <TeamMember key={myDataObj.name} myData={myDataObj} />
       })}
